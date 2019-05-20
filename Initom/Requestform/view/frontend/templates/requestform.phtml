@@ -1,0 +1,139 @@
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); ?>
+<?php 
+
+$storeManager = $objectManager->create('Magento\Store\Model\StoreManagerInterface');
+$values = $objectManager->create('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('requestform/general/dayofweek', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+echo "string1=";
+$values = json_decode($values, true);
+        unset($values['__empty']);
+        foreach ($values as $key => $value) {
+            echo $value['dayofweek']."<br />";   
+        }
+?>
+<div id="returnsystem-contain">
+	<div id="support-portal-replacement-form">
+      	<div class="main-container col1-layout">
+        	<div class="row">
+          		<div class="col-md-12">
+                <?php echo "string"; ?>
+					<h2 style="color:#50BBFF;font-weight:300;">Request</h2>
+					<strong>You must have a valid order number and email address to process your replacement request.</strong>
+					<form class="form requestproduct"
+                      action="<?php echo $block->getUrl('requestproduct/index/save/');?>"
+                      id="requestproduct-form"
+                      name="requestproduct-form"
+                      onsubmit="return myFunction()"
+                      method="post"
+                      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+                      data-mage-init='{"validation":{}}'>
+                      	<?php echo $this->getBlockHtml('formkey')?>
+					    <div class="replacement_step step_1">
+					        <div class="step_title">Required Information</div>
+					        <div class="step_content">
+					            <div class="form-item-1">
+					                <label class="required">Email Address <em>*</em>: </label>
+					                <input class="input-text form-control" type='email' name="subject" id="subject" data-validate="{required:true, 'validate-email':true}" />
+					            </div>
+					            <div class="form-item-2">
+					                <label class="required">email_content <em>*</em>: </label>
+					                <input class="input-text form-control" id="email_content" value="" name="email_content" type='text' data-validate="{required:true}" />
+					            </div>
+					            
+					        </div>
+					        <button type="submit" id="submit"  title="Confirm" class="action submit primary">
+	                            <span><?php /* @escapeNotVerified */ echo __('Confirm') ?></span>
+	                        </button>
+					    </div>
+					</form>
+				</div>
+        	</div>
+      	</div>
+    </div>
+	
+	<!-- bootom rp form -->
+</div>
+
+<style type="text/css">
+    #ok{
+        height: 27px;
+        width: 70px;
+        margin-right: 20px;
+        margin-top: 15px;
+    }
+    #cancel{
+        height: 27px;
+        width: 70px;
+        margin-left: 20px;
+        margin-top: 15px;
+    }
+    #email-order {width: 95%;}
+    #order_id {width: 90%;}
+    .step_title{background: #f3f3f3 none repeat scroll 0 0;color: #00315d;padding: 5px;font-weight: bold;margin-top: 10px;margin-bottom: 10px;}
+    .form-item-1{width: 40%;float: left;}
+    .form-item-2{width: 60%;float: left;}
+
+    .new_address {width: 98%;}
+    .new_address .field{float: left;width: 100%;}
+    .new_address .input-box{width: 98%;}
+    .new_address_input {padding: 3px 2px 4px;width: 98%;}
+
+    .step_content {display: none;}
+    .new_address_input {padding: 3px 2px 4px;}
+    .reason label{vertical-align: top;}
+
+    .step_1 {display: inline-block;width: 100%;}
+    .step_1 .step_content {display: inline-block;padding-bottom: 10px; width: 100%;}
+    .step_1 .form-item-1 .validate-email{width: 180px;}
+    .button_next {float: left; width: 98%; padding: 10px 0;}
+    .step_2{position: relative; width: 100%; display: inline-block;}
+
+    .step_2 button{ margin-top: 10px;float: right;background-color: transparent;
+    border: 0;
+    box-shadow: none;}
+    .step_order_info {
+    	border-color: #2197d9 #175b81 #175b81;
+	    border-image: none;
+	    -moz-border-radius: 4px;
+	    -webkit-border-radius: 4px;
+	    border-radius: 4px;
+	    border-right: 1px solid #175b81;
+	    border-style: solid;
+	    border-width: 1px;
+	    -moz-box-shadow: 0 1px 0 #8cdff4 inset, 0 2px 1px rgba(0, 0, 0, 0.14);
+	    -webkit-box-shadow: 0 1px 0 #8cdff4 inset, 0 2px 1px rgba(0, 0, 0, 0.14);
+	    box-shadow: 0 1px 0 #8cdff4 inset, 0 2px 1px rgba(0, 0, 0, 0.14);
+	    white-space: nowrap;
+	    background: #3fc9ec;
+	    background: -moz-linear-gradient(top,  #3fc9ec 0%, #1f93d8 100%);
+	    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3fc9ec), color-stop(100%,#1f93d8));
+	    background: -webkit-linear-gradient(top,  #3fc9ec 0%,#1f93d8 100%);
+	    background: -o-linear-gradient(top,  #3fc9ec 0%,#1f93d8 100%);
+	    background: -ms-linear-gradient(top,  #3fc9ec 0%,#1f93d8 100%);
+	    background: linear-gradient(to bottom,  #3fc9ec 0%,#1f93d8 100%);
+	    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3fc9ec', endColorstr='#1f93d8',GradientType=0 );
+	    color: #fff !important; padding: 10px; width: 30px; text-align: center;
+	}
+    .current_address label {font-weight: bold;}
+    .address .input-box {padding-top: 5px;}
+    #replacement_product {width: 98%; margin-bottom: 10px;}
+    .replacement_step label.required em {color: #eb340a;}
+    .replacement_step textarea{height: 55px;width: 98%;}
+    .field_reason {position: relative;}
+    #overlay_reason {position: absolute;top: 0;z-index: 9999;width: 100%;height: 100%;}
+    .hidden {
+        display: none;
+        visibility: hidden;
+    }
+
+    .hidden {
+        display: block !important;
+        border: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+</style>

@@ -1,0 +1,92 @@
+<?php
+/**
+ * Initom
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Initom license that is
+ * available through the world-wide-web at this URL:
+ * 
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Initom
+ * @package     Initom_Requestform
+ * @copyright   Copyright (c) Initom
+ * @license     Initom
+ */
+
+namespace Initom\Requestform\Ui\Component\Listing\Column;
+
+use Magento\Framework\UrlInterface;
+use Magento\Framework\View\Element\UiComponent\ContextInterface;
+use Magento\Framework\View\Element\UiComponentFactory;
+use Magento\Ui\Component\Listing\Columns\Column;
+
+/**
+ * Class Actions
+ * @package Initom\Requestform\Ui\Component\Listing\Column
+ */
+class Actions extends Column
+{
+    /**
+     * @var \Magento\Framework\UrlInterface
+     */
+    private $urlBuilder;
+
+    /**
+     * Actions constructor.
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param UrlInterface $urlBuilder
+     * @param array $components
+     * @param array $data
+     */
+    public function __construct(
+        ContextInterface $context,
+        UiComponentFactory $uiComponentFactory,
+        UrlInterface $urlBuilder,
+        array $components = [],
+        array $data = []
+    )
+    {
+        parent::__construct($context, $uiComponentFactory, $components, $data);
+
+        $this->urlBuilder = $urlBuilder;
+    }
+
+    /**
+     * Prepare Data Source
+     *
+     * @param array $dataSource
+     * @return array
+     */
+    public function prepareDataSource(array $dataSource)
+    {
+        if (isset($dataSource['data']['items'])) {
+            foreach ($dataSource['data']['items'] as & $item) {
+                // $item['subject'] = iconv_mime_decode($item['subject'], 2, 'UTF-8');
+                $item[$this->getData('name')] = [
+                    'view'   => [
+                        'href' => $this->urlBuilder->getUrl('adminhtml/requestform/edit', ['id' => $item['id']]),
+                        'label' => __('Edit'),
+                        'hidden' => false,
+                    ],
+                    'delete' => [
+                        'href'    => $this->urlBuilder->getUrl('adminhtml/requestform/delete', ['id' => $item['id']]),
+                        'label'   => __('Delete'),
+                        'confirm' => [
+                            'title'   => __('Delete Request'),
+                            'message' => __('Are you sure you want to delete this <strong>"%1"</strong>?', $item['id'])
+                        ]
+                    ],
+                ];
+            }
+        }
+
+        return $dataSource;
+    }
+}

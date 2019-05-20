@@ -1,0 +1,76 @@
+<?xml version="1.0"?><!--
+/**
+ * Initom
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Initom license that is
+ * available through the world-wide-web at this URL:
+ * 
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Initom
+ * @package     Initom_Requestform
+ * @copyright   Copyright (c) Initom
+ * @license     Initom
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="initom" translate="label" sortOrder="401">
+            <label>Initom Extensions</label>
+        </tab>
+        <section id="requestform" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Requestform</label>
+            <tab>initom</tab>
+            <resource>Initom_Requestform::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Initom Requestform</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Yes is Show, No is Hidden.]]></comment>
+                </field>
+                <field id="log_email" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Log Emails</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>It will log all sent emails, you can preview it and schedule clean up.</comment>
+                </field>
+                <field id="clean_email" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Clean Email Log Every</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <comment>Day(s). If empty or zero, the Email log will not be cleaned.</comment>
+                    <depends>
+                        <field id="log_email">1</field>
+                    </depends>
+                </field>
+                <field id="values" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Blacklist Items</label>
+                    <frontend_model>Initom\Requestform\Block\Adminhtml\Form\Field\ValueArray</frontend_model>
+                    <backend_model>Initom\Requestform\Model\System\Config\Backend\ValueArray</backend_model>
+                    <comment>
+                        <![CDATA[Emails which match these items can't be used to register new account and place order.]]>
+                    </comment>
+                    <depends>
+                        <field id="log_email">1</field>
+                    </depends>
+                </field>
+                <field id="dayofweek" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Day Of Week</label>
+                    <frontend_model>Initom\Requestform\Block\Adminhtml\Form\Field\ValueDateArray</frontend_model>
+                    <backend_model>Initom\Requestform\Model\System\Config\Backend\ValueDateArray</backend_model>
+                    <comment>
+                        <![CDATA[Emails which match these items can't be used to register new account and place order.]]>
+                    </comment>
+                    <depends>
+                        <field id="log_email">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

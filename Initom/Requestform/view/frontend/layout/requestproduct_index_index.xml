@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
+	<!-- <head>
+	    <css src="Initom_Requestform::css/stylerp.css" />
+	    <css src="Initom_Requestform::css/jquery.fancybox-1.3.4.css" />
+	    <css src="Initom_Requestform::js/jquery-ui/jquery-ui.min.css" />
+	    <script src="Initom_Requestform::js/fancybox/jquery.easing-1.3.pack.js"/>
+	    <script src="Initom_Requestform::js/fancybox/jquery.mousewheel-3.0.6.pack.js"/>
+	</head> -->
+    <body>
+    	<referenceBlock name="page.main.title" remove="true" />
+        <referenceContainer name="content">
+            <block class="Initom\Requestform\Block\Requestform" name="requestform" template="requestform.phtml" />
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Initom
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Initom license that is
+ * available through the world-wide-web at this URL:
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Initom
+ * @package     Initom_Requestform
+ * @copyright   Copyright (c) Initom
+ * @license     Initom
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="requestform_email_template" label="Requestform Email" file="requestform_email_template.html" type="html" module="Initom_Requestform" area="frontend"/>
+</config>
